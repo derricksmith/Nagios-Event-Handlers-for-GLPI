@@ -5,15 +5,15 @@ require_once("glpi_api.php");
 ##  Variables ##
 
 ## Required ##
-$glpi_user					= '';
-$glpi_password				= '';
-$glpi_apikey				= '';
-$glpi_host					= '';
-$nagios_host				= '';
-$verifypeer					= FALSE; // SETS curl_setopt ($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
-$logging					= TRUE;
-$critical_priority			= 5;
-$warning_priority			= 3;
+$glpi_user			= '';
+$glpi_password			= '';
+$glpi_apikey			= '';
+$glpi_host			= '';
+$nagios_host			= '';
+$verifypeer			= FALSE; // SETS curl_setopt ($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
+$logging			= TRUE;
+$critical_priority		= 5;
+$warning_priority		= 3;
 
 ## Optional ##
 $glpi_requester_user_id		= '';
