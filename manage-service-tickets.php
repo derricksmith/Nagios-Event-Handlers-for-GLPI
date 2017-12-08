@@ -6,15 +6,15 @@ require_once("glpi_api.php");
 ##  Variables ##
 
 ## Required ##
-$glpi_user			= '';
-$glpi_password			= '';
-$glpi_apikey			= '';
-$glpi_host			= '';
-$nagios_host			= '';
-$verifypeer			= FALSE; // SETS curl_setopt ($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
-$logging			= TRUE;
-$critical_priority		= 5;
-$warning_priority		= 3;
+$glpi_user					= '';
+$glpi_password				= '';
+$glpi_apikey				= '';
+$glpi_host					= '';
+$nagios_host				= '';
+$verifypeer					= FALSE; // SETS curl_setopt ($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
+$logging					= TRUE;
+$critical_priority			= 5;
+$warning_priority			= 3;
 
 ## Optional ##
 $glpi_requester_user_id		= '';
@@ -110,31 +110,7 @@ if (($hoststate == "UP")) {  // Only open tickets for services on hosts that are
 							$glpi->updateItem('Ticket', $post);
 						}
 					} else {
-						logging("Manage Service Tickets: No Critical Tickets found, Creating new critical ticket", $logging);
-						//Create a new ticket
-						$ticket = array(
-							'input' => array(
-								'name' => "$service on $eventhost is in a Critical State!",
-								'content' => "$service on $eventhost is in a Critical State.  Please check that the service or check is running and responding correctly \n
-									Check service status at $nagios_host \n
-									<b>Service Check Details</b> 
-									Host \t\t\t = $eventhost 
-									Service Check \t = $service 
-									State \t\t\t = $servicestate 
-									Check Attempts \t = $serviceattempts/$maxserviceattempts 
-									Check Command \t = $servicecheckcommand 
-									Check Output \t\t = $serviceoutput 
-									$longserviceoutput",
-								'priority' => $critical_priority,
-								'_users_id_requester' => $glpi_requester_user_id,
-								'_groups_id_requester' => $glpi_requester_group_id,
-								'_users_id_observer' => $glpi_watcher_user_id,
-								'_groups_id_observer' => $glpi_watcher_group_id,
-								'_users_id_assign' => $glpi_assign_user_id,
-								'_groups_id_assign' => $glpi_assign_user_id
-							)
-						);
-						$glpi->addItem('Ticket', $ticket);
+						logging("Manage Service Tickets: No Critical Tickets found, exiting gracefully", $logging);
 					}
 					break;
 				case "WARNING":
@@ -165,31 +141,7 @@ if (($hoststate == "UP")) {  // Only open tickets for services on hosts that are
 							$glpi->updateItem('Ticket', $post);
 						}
 					} else {
-						logging("Manage Service Tickets: No Warning Tickets found, Creating new warning ticket", $logging);
-						//Create a new ticket
-						$ticket = array(
-							'input' => array(
-								'name' => "$service on $eventhost is in a Warning State!",
-								'content' => "$service on $eventhost is in a Warning State.  Please check that the service or check is running and responding correctly \n
-									Check service status at $nagios_host \n
-									<b>Service Check Details</b> 
-									Host \t\t\t = $eventhost 
-									Service Check \t = $service 
-									State \t\t\t = $servicestate 
-									Check Attempts \t = $serviceattempts/$maxserviceattempts 
-									Check Command \t = $servicecheckcommand 
-									Check Output \t\t = $serviceoutput 
-									$longserviceoutput",
-								'priority' => $critical_priority,
-								'_users_id_requester' => $glpi_requester_user_id,
-								'_groups_id_requester' => $glpi_requester_group_id,
-								'_users_id_observer' => $glpi_watcher_user_id,
-								'_groups_id_observer' => $glpi_watcher_group_id,
-								'_users_id_assign' => $glpi_assign_user_id,
-								'_groups_id_assign' => $glpi_assign_user_id
-							)
-						);
-						$glpi->addItem('Ticket', $ticket);
+						logging("Manage Service Tickets: No Warning Tickets found, exiting gracefully", $logging);
 					}
 					break;
 				case "OK":
